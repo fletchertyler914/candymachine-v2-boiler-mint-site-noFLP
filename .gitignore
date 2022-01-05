@@ -29,6 +29,10 @@ typings/
 #Enviroment File
 .env
 
+#Build
+build/
+
+
 
 Cmv2/assets/
 Cmv2/.cache/*
