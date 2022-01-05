@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import { CandyMachineAccount } from './candy-machine';
+import { CandyMachineAccount } from '../utils/candy-machine';
 
 import { CircularProgress } from '@material-ui/core';
 import { GatewayStatus, useGateway } from '@civic/solana-gateway-react';
 import { useEffect, useState } from 'react';
-import { whitelistSettings, publicSaleSettings, mintPanic } from './userSettings';
-import { toDate }  from './utils'
+import { whitelistSettings, publicSaleSettings, mintPanic } from '../userSettings';
+import { toDate }  from '../utils/utils'
 
 
 export const CTAButton = styled(Button)`

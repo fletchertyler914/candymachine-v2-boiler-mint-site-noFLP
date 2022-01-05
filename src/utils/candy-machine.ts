@@ -1,7 +1,7 @@
 import * as anchor from '@project-serum/anchor';
 
 import { MintLayout, TOKEN_PROGRAM_ID, Token } from '@solana/spl-token';
-import { SystemProgram } from '@solana/web3.js';
+import { PublicKey, SystemProgram } from '@solana/web3.js';
 import { sendTransactions } from './connection';
 
 import {
@@ -235,10 +235,11 @@ export const getCandyMachineCreator = async (
 };
 
 export const mintOneToken = async (
+  mint: anchor.web3.Keypair,
   candyMachine: CandyMachineAccount,
   payer: anchor.web3.PublicKey,
 ): Promise<(string | undefined)[]> => {
-  const mint = anchor.web3.Keypair.generate();
+  // const mint = anchor.web3.Keypair.generate();
 
   const userTokenAccountAddress = (
     await getAtaForMint(mint.publicKey, payer)

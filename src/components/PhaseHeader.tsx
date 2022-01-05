@@ -2,15 +2,15 @@ import * as anchor from "@project-serum/anchor";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { PhaseCountdown } from "./countdown";
-import { toDate } from "./utils";
-import { CandyMachineAccount } from "./candy-machine";
+import { toDate } from "../utils/utils";
+import { CandyMachineAccount } from "../utils/candy-machine";
 import { useWallet } from "@solana/wallet-adapter-react";
 import {
   publicSaleSettings,
   whitelistSettings,
   welcomeSettings,
   mintPanic,
-} from "./userSettings";
+} from "../userSettings";
 import { Container } from "@material-ui/core";
 
 export enum Phase {

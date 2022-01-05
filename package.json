@@ -30,8 +30,15 @@
     "react": "^17.0.2",
     "react-countdown": "^2.3.2",
     "react-dom": "^17.0.2",
+    "react-ga": "^3.3.0",
     "react-is": "^17.0.2",
     "react-scripts": "4.0.3",
+    "react-select": "^5.2.1",
+    "react-spinners": "^0.11.0",
+    "react-switch": "^6.0.0",
+    "react-toastify": "^8.1.0",
+    "react-tooltip": "^4.2.21",
+    "sass": "^1.45.2",
     "styled-components": "^5.3.1",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
@@ -42,7 +49,19 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy:gh": "gh-pages -d ./build/ --repo https://github.com/pit-v/metaplex -t true --branch gh-pages-3",
-    "deploy": "cross-env ASSET_PREFIX=/metaplex/ yarn build && yarn deploy:gh"
+    "deploy": "cross-env ASSET_PREFIX=/metaplex/ yarn build && yarn deploy:gh",
+    "TEST COMMANDS: *********************************************************************************************************************************************************************************************************************************": "",
+    "upload-assets:test": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts upload -e devnet -k ~/.config/solana/id.json -cp ./CMv2/test-config.json -c test-assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899 ./CMv2/test-assets",
+    "verify-upload:test": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts verify_upload -k ~/.config/solana/id.json -c test-assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899",
+    "update-cm:test": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts update_candy_machine -e devnet -k ~/.config/solana/devnet.json -cp test-config.json -c test-assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899",
+    "DEVNET COMMANDS: *******************************************************************************************************************************************************************************************************************************": "",
+    "upload-assets:devnet": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts upload -e devnet -k ~/.config/solana/id.json -cp ./CMv2/config.json -c assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899 ./CMv2/assets",
+    "verify-upload:devnet": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts verify_upload -k ~/.config/solana/id.json -c assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899",
+    "update-cm:devnet": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts update_candy_machine -e devnet -k ~/.config/solana/devnet.json -cp config.json -c assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899",
+    "MAINNET COMMANDS: *******************************************************************************************************************************************************************************************************************************": "",
+    "upload-assets:mainnet": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts upload -e mainnet-beta -k ~/.config/solana/mainnet.json -cp ./CMv2/config.json -c assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899 ./CMv2/assets",
+    "verify-upload:mainnet": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts verify_upload -e mainnet-beta -k ~/.config/solana/mainnet.json -c assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899",
+    "update-cm:mainnet": "ts-node ~/metaplex/js/packages/cli/src/candy-machine-v2-cli.ts update_candy_machine -e mainnet-beta -k ~/.config/solana/mainnet.json -cp config.json -c assets -r https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899"
   },
   "eslintConfig": {
     "extends": [

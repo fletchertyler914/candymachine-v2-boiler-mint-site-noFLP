@@ -1,0 +1,175 @@
+$xs: 320px;
+$sm: 360px;
+$lg: 992px;
+$md: 768px;
+$bps: 16px;
+$bpm: 32px;
+$bpl: 80px;
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+@mixin mobile-full-width {
+  margin: 0 (-$bps);
+  width: calc(100% + #{$bps} * 2 );
+  @media(min-width: $md) {
+    margin: 0 (-$bpm);
+    width: calc(100% + #{$bpm} * 2 );
+  }
+  @media(min-width: $lg) {
+    margin: 0 -28px;
+  }
+}
+
+@mixin reset-mobile-full-width {
+  margin: inherit;
+  width: inherit;
+}
+
+.container {
+  margin: auto;
+  padding: 0 $bps;
+  @media (min-width: 768px) {
+    max-width: 980px;
+    padding: 0 $bpm;
+  }
+  @media(min-width: 992px) {
+    max-width: 1440px;
+    padding: 0 $bpl;
+  }
+
+}
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col-sm-6, .col-sm-12, .col-md-6, .col-md-12 {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-sm-6 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.col-sm-12 {
+  flex: 0 1 100%;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  max-width: 100%;
+}
+
+@media(min-width: $md) {
+  .col-md-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .col-md-12 {
+    flex: 0 1 100%;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.mb-12 {
+  margin-bottom: 12px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-12 {
+  margin-top: 12px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.pb-12 {
+  padding-bottom: 12px;
+}
+
+.pb-16 {
+  padding-bottom: 16px;
+}
+
+.pb-20 {
+  padding-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+@media(max-width: 767px) {
+  .show-md {
+    display: none !important;
+  }
+}
+
+@media(min-width: 768px) {
+  .hide-md {
+    display: none !important;
+  }
+}
+
+@media(max-width: 991px) {
+  .show-lg {
+    display: none !important;
+  }
+}
+
+@media(min-width: $lg) {
+  .hide-lg {
+    display: none !important;
+  }
+}
+
+@media screen and (orientation:landscape) {
+  .hide-landscape {
+   display: none;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}

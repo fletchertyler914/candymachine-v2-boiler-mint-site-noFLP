@@ -1,0 +1,52 @@
+{
+  "program": {
+    "uuid": "E7Hyn6",
+    "candyMachine": "E7Hyn6PLYgCnvgTactHqnWdq2TMwuaajwmF6Rb7oHqvM"
+  },
+  "items": {
+    "0": {
+      "link": "https://arweave.net/mtIpqnAN7d2p6LpjLL4yozLwNb_TJNnhFbhZ-vGFowc",
+      "imageLink": "https://arweave.net/4owToPz8RNs4Qu6aCbOMVb6qFNxclqlzPTbIAMdK5QE?ext=png",
+      "name": "Scapes #1",
+      "onChain": true,
+      "verifyRun": true
+    },
+    "1": {
+      "link": "https://arweave.net/RC_eOHYVYsPKvnwhTwU_WsCJJclYYEZpcdvsD1ZJiHk",
+      "imageLink": "https://arweave.net/LcgXHhIruDx6KRoYvMgnnNDJjhXQ7EAT-0uGmfyTTXc?ext=png",
+      "name": "Scapes #2",
+      "onChain": true,
+      "verifyRun": true
+    },
+    "2": {
+      "link": "https://arweave.net/FN5YoRrAkvyp_8wqx9j_sneRzUn1QFQponXVFCpo0rU",
+      "imageLink": "https://arweave.net/9invKZ9kYOwMcGKWpYF6h78s8XFLDJIXfaKnGgAkBTo?ext=png",
+      "name": "Scapes #3",
+      "onChain": true,
+      "verifyRun": true
+    },
+    "3": {
+      "link": "https://arweave.net/YIm0jwg85mwQxlwG9-TtYGStlwBanViwaNcghM6m7O8",
+      "imageLink": "https://arweave.net/bEdLTR5tokK2kR6XkVkAlpwZi3xA3lQUPABT6NLQwSE?ext=png",
+      "name": "Scapes #4",
+      "onChain": true,
+      "verifyRun": true
+    },
+    "4": {
+      "link": "https://arweave.net/uRrpB4N62NZmabX6nNQ6hgZRIUdHUXHERpCILXr1gjo",
+      "imageLink": "https://arweave.net/Oo-JKU_tIMMskVOz90iaGMqY16-Kdxp6P-OMeRNNuzY?ext=png",
+      "name": "Scapes #5",
+      "onChain": true,
+      "verifyRun": true
+    },
+    "5": {
+      "link": "https://arweave.net/H28yf__TEifdpE2PkFLLY1EbPbKDfK9kb8j8gCu9xTU",
+      "imageLink": "https://arweave.net/9OJZap-VVAWWc8GwxKWeWVwz7JRo2TdMrk1lrjCWnXA?ext=png",
+      "name": "Scapes #6",
+      "onChain": true,
+      "verifyRun": true
+    }
+  },
+  "env": "devnet",
+  "cacheName": "test-assets"
+}
