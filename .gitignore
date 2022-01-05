@@ -30,3 +30,6 @@ typings/
 .env
 
 
+Cmv2/assets/
+Cmv2/.cache/*
+Cmv2/config.json

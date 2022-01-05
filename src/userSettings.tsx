@@ -49,19 +49,16 @@ export const mintPanic = {
 ///                             ///
 
 export const welcomeSettings: WelcomeSettings = {
-
   //Title and Description
-  title: "Welcome!",
-  desc: "Connect your wallet and load in! Whitelist mint starts soon!",
+  title: 'Welcome!',
+  desc: 'Connect your wallet and load in! Whitelist mint starts soon!',
 
   // Countdown Timer
-  countdownEnable: false,
-  countdownTo: date("2 Jan 2022 00:00:00 GMT"),
-  //Example date below
-  // date('29 2021 00:00:00 GMT')
+  countdownEnable: true,
+  countdownTo: date('5 Jan 2022 01:15:00 CST'),
 
   // showprice
-  showPrice: false,
+  showPrice: true,
 
   //Enable Custom HTML
   enableCustomHTML: false,
@@ -97,10 +94,10 @@ export class MintWelcomeCustomHTML extends React.Component {
 
 export const whitelistSettings: WhitelistSettings = {
   //If you want to use the whitelist feature enable it.
-  enabled: true,
+  enabled: false,
 
-  startDate: date("1 Jan 2022 00:00:00 GMT"),
-  endDate: date("8 Jan 2022 00:00:00 GMT"),
+  startDate: date("5 Jan 2022 00:00:00 GMT"),
+  endDate: date("5 Jan 2022 12:00:00 GMT"),
   countdown: true,
   //Example date below
   // date('29 2021 00:00:00 GMT')
@@ -138,15 +135,16 @@ export class MintWhitelistCustomHTML extends React.Component {
 export const publicSaleSettings: PublicSaleSettings = {
   //start date and end date must match your Candy Machine Config for public launch!
 
-  startDate: date("7 Jan 2022 00:00:00 GMT"),
+  startDate: date('5 Jan 2022 01:15:00 CST'),
+  // startDate: date('5 Jan 2022 12:00:00 GMT'),
   endDate: undefined,
   countdown: false,
   //Example date below
   // date('29 2021 00:00:00 GMT')
 
   //Title and Description
-  title: "Public Sale",
-  desc: "Sale is now live. Mint your NFT below",
+  title: 'Public Sale',
+  desc: 'Sale is now live. Mint your NFT below',
 
   //Enable Custom HTML
   enableCustomHTML: false,
