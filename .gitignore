@@ -37,3 +37,5 @@ build/
 Cmv2/assets/
 Cmv2/.cache/*
 Cmv2/config.json
+.DS_Store
+.DS_Store

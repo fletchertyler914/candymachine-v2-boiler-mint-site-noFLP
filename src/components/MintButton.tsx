@@ -5,7 +5,7 @@ import { CandyMachineAccount } from '../utils/candy-machine';
 import { CircularProgress } from '@material-ui/core';
 import { GatewayStatus, useGateway } from '@civic/solana-gateway-react';
 import { useEffect, useState } from 'react';
-import { whitelistSettings, publicSaleSettings, mintPanic } from '../userSettings';
+import { whitelistSettings, publicSaleSettings, mintPanic } from '../mintSettings';
 import { toDate }  from '../utils/utils'
 
 

@@ -5,7 +5,7 @@ import ElementsService from '../services/ElementsService';
 import {
   IScapesElement,
   IScapesElementData,
-} from '../types/ElementResponseData';
+} from '../models/ElementResponseData';
 
 export const useScapesElements = () => {
   const { publicKey } = useWallet();

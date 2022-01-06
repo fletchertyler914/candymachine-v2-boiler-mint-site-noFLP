@@ -11,10 +11,11 @@ import ImageService from '../services/ImageService';
 import { css } from '@emotion/react';
 import FadeLoader from 'react-spinners/FadeLoader';
 import ReactGA from 'react-ga';
-import IImageData from '../types/ImageData';
+import IImageData from '../models/ImageData';
 import { ScapesBuilder } from './ScapesBuilder';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useScapesElements } from '../hooks/useScapesElements';
+import CandyMachine from './CandyMachine';
 // import { Roadmap } from './Roadmap';
 
 // Default styles that can be overridden by your app
@@ -169,13 +170,13 @@ export function Home() {
     if (availableElementOptions.length > 0) {
       // Update Whitelist Status
       const isWhitlisted = availableElementOptions.some((e) =>
-        e.elements.some((el) => el.isWhitelisted)
+        e.elements.some((el: any) => el.isWhitelisted)
       );
       setIsWhitelisted(isWhitlisted);
 
       // Update Whitelist Status
       const isPreseason = availableElementOptions.some((e) =>
-        e.elements.some((el) => el.isPreSeason)
+        e.elements.some((el: any) => el.isPreSeason)
       );
       setIsPreseason(isPreseason);
     }
@@ -333,14 +334,7 @@ export function Home() {
               hasOtherErrors={!!error}
             />
           )} */}
-          {/* <Minter
-            candyMachineId={candyMachineId}
-            connection={connection}
-            startDate={startDateSeed}
-            txTimeout={txTimeout}
-            rpcHost={rpcHost}
-             scapeModel={scapeModel}
-          /> */}
+          <CandyMachine scapeModel={scapeModel} />
         </div>
       </div>
 

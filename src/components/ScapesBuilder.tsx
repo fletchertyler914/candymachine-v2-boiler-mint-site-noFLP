@@ -5,8 +5,8 @@ import Select, {
   SingleValue,
   StylesConfig,
 } from 'react-select';
-import { IElementData, IScapesElementData } from '../types/ElementResponseData';
-import IImageData from '../types/ImageData';
+import { IElementData, IScapesElementData } from '../models/ElementResponseData';
+import IImageData from '../models/ImageData';
 import Switch from 'react-switch';
 import ReactTooltip from 'react-tooltip';
 

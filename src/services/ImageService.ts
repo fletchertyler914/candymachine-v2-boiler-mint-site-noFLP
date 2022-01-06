@@ -1,7 +1,7 @@
 import http from '../utils/http-common';
-import { BuildScapeResponse } from '../types/BuildScapeResponse';
-import IImageData from '../types/ImageData';
-import IMintData from '../types/ImageData';
+import { BuildScapeResponse } from '../models/BuildScapeResponse';
+import IImageData from '../models/ImageData';
+import IMintData from '../models/ImageData';
 
 const create = (data: IImageData) => {
   return http.post<BuildScapeResponse>('/image/merge', data).catch((err) => {

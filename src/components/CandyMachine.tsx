@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 
-import IMintData from '../types/ImageData';
+import IMintData from '../models/ImageData';
 
 import ReactGA from 'react-ga';
 
@@ -35,9 +35,10 @@ import {
   MintWelcomeCustomHTML,
   MintWhitelistCustomHTML,
   MintPublicSaleCustomHTML,
-} from '../userSettings';
+} from '../mintSettings';
 import { web3 } from '@project-serum/anchor';
 import ImageService from '../services/ImageService';
+import IImageData from '../models/ImageData';
 
 const ConnectButton = styled(WalletDialogButton)`
   position: absolute;
@@ -70,7 +71,7 @@ const connection = new web3.Connection(rpcHost);
 
 const txTimeout = 30000;
 
-const CandyMachine = () => {
+const CandyMachine = ({ scapeModel }: { scapeModel?: IImageData }) => {
   const [balance, setBalance] = useState<number | null>(null);
   const rpcUrl = rpcHost;
   const [whiteListTokenBalance, setWhiteListTokenBalance] = useState<number>(0);
@@ -137,91 +138,98 @@ const CandyMachine = () => {
   };
 
   const onMint = async () => {
-    try {
-      setIsMinting(true);
-      document.getElementById('#identity')?.click();
-      if (wallet.connected && candyMachine?.program && wallet.publicKey) {
-        const mint = anchor.web3.Keypair.generate();
+    if (scapeModel) {
+      try {
+        setIsMinting(true);
+        
+        document.getElementById('#identity')?.click();
+        
+        if (wallet.connected && candyMachine?.program && wallet.publicKey) {
+          const mint = anchor.web3.Keypair.generate();
 
-        // TODO: Get Scape Model
-        const scapeModel = {} as IMintData;
+          let mintModel = {
+            MintId: mint.publicKey.toString(),
+            Address: wallet.publicKey.toString(),
+            NftData: scapeModel,
+          };
 
-        let mintModel = {
-          MintId: mint.publicKey.toString(),
-          Address: wallet.publicKey.toString(),
-          NftData: scapeModel,
-        };
+          ImageService.save(mintModel as IMintData)
+            .then(() => {
+              setAlertState({
+                open: true,
+                message: 'Metadata generated, dispatching transaction...',
+                severity: 'info',
+              });
 
-        ImageService.save(mintModel as IMintData)
-          .then(() => {
-            setAlertState({
-              open: true,
-              message: 'Metadata generated, dispatching transaction...',
-              severity: 'info',
-            });
+              ReactGA.event({
+                category: 'User',
+                action: 'Mint saved- {wallet_id} - {elements array}',
+              });
 
-            ReactGA.event({
-              category: 'User',
-              action: 'Mint saved- {wallet_id} - {elements array}',
-            });
+              if (wallet && candyMachine?.program && wallet?.publicKey) {
+                (async () => {
+                  const mintTxId = (
+                    await mintOneToken(
+                      mint,
+                      candyMachine,
+                      wallet.publicKey as PublicKey
+                    )
+                  )[0];
+                  let status: any = { err: true };
+                  if (mintTxId) {
+                    status = await awaitTransactionSignatureConfirmation(
+                      mintTxId,
+                      txTimeout,
+                      connection,
+                      'singleGossip',
+                      true
+                    );
 
-            if (wallet && candyMachine?.program && wallet?.publicKey) {
-              (async () => {
-                const mintTxId = (
-                  await mintOneToken(
-                    mint,
-                    candyMachine,
-                    wallet.publicKey as PublicKey
-                  )
-                )[0];
-                let status: any = { err: true };
-                if (mintTxId) {
-                  status = await awaitTransactionSignatureConfirmation(
-                    mintTxId,
-                    txTimeout,
-                    connection,
-                    'singleGossip',
-                    true
-                  );
-
-                  if (!status?.err) {
-                    setAlertState({
-                      open: true,
-                      message: 'Congratulations! Mint succeeded!',
-                      severity: 'success',
-                    });
-                    setMintingTotal(mintingTotal! + 1);
-                    if (whiteListTokenBalance && whiteListTokenBalance > 0)
-                      setWhiteListTokenBalance(whiteListTokenBalance - 1);
-                  } else {
-                    setAlertState({
-                      open: true,
-                      message: 'Mint failed! Please try again!',
-                      severity: 'error',
-                    });
+                    if (!status?.err) {
+                      setAlertState({
+                        open: true,
+                        message: 'Congratulations! Mint succeeded!',
+                        severity: 'success',
+                      });
+                      setMintingTotal(mintingTotal! + 1);
+                      if (whiteListTokenBalance && whiteListTokenBalance > 0)
+                        setWhiteListTokenBalance(whiteListTokenBalance - 1);
+                    } else {
+                      setAlertState({
+                        open: true,
+                        message: 'Mint failed! Please try again!',
+                        severity: 'error',
+                      });
+                    }
                   }
-                }
-              })();
-            }
-          })
-          .catch(handleError);
+                })();
+              }
+            })
+            .catch(handleError);
+        }
+      } catch (error: any) {
+        if (
+          error.code === 4001 &&
+          error.message === 'User rejected the request.'
+        ) {
+          setAlertState({
+            open: true,
+            message: 'Mint Cancelled!',
+            severity: 'error',
+          });
+          // TODO: Send DELETE request to purge record from the database
+        } else {
+          handleError(error);
+        }
+      } finally {
+        setIsMinting(false);
       }
-    } catch (error: any) {
-      if (
-        error.code === 4001 &&
-        error.message === 'User rejected the request.'
-      ) {
-        setAlertState({
-          open: true,
-          message: 'Mint Cancelled!',
-          severity: 'error',
-        });
-        // TODO: Send DELETE request to purge record from the database
-      } else {
-        handleError(error);
-      }
-    } finally {
-      setIsMinting(false);
+    } else {
+      setAlertState({
+        open: true,
+        message: 'Error Loading Scape Attributes!',
+        severity: 'error',
+      });
     }
   };
 
@@ -237,12 +245,10 @@ const CandyMachine = () => {
       }
 
       try {
-        const balance = await connection.getBalance(
-          anchorWallet.publicKey
-        );
+        const balance = await connection.getBalance(anchorWallet.publicKey);
         setBalance(balance);
       } catch (e) {
-        console.log("Problem getting candy machine state");
+        console.log('Problem getting candy machine state');
         console.log(e);
       }
 
@@ -301,6 +307,55 @@ const CandyMachine = () => {
   const phase = getPhase(candyMachine);
 
   return (
+    // <div className='wallet-info'>
+    //   <div className='wallet-info__line'>
+    //     {wallet && (
+    //       <div className='wallet-info__id'>
+    //         {shortenAddress(wallet.publicKey?.toBase58() || '')}
+    //       </div>
+    //     )}
+    //     {wallet && (
+    //       <div className='wallet-info__balance'>
+    //         {(balance || 0).toLocaleString()} SOL
+    //       </div>
+    //     )}
+    //   </div>
+    //   <div className='wallet-info__line'>
+    //     <div className='wallet-info__balance'>
+    //       Mint for <span>0.49 SOL</span>
+    //     </div>
+
+    //     <button
+    //       className='btn mint-button'
+    //       disabled={isSoldOut || isMinting || !isActive || hasOtherErrors}
+    //       onClick={onMint}
+    //     >
+    //       {isSoldOut ? (
+    //         'SOLD OUT'
+    //       ) : isActive ? (
+    //         isMinting ? (
+    //           'Minting...'
+    //         ) : (
+    //           'Mint my Scape'
+    //         )
+    //       ) : (
+    //         <Countdown
+    //           date={startDate}
+    //           onMount={({ completed }) => completed && setIsActive(true)}
+    //           onComplete={() => setIsActive(true)}
+    //           renderer={renderCounter}
+    //         />
+    //       )}
+    //     </button>
+    //   </div>
+
+    //   {/*{wallet && <div className="wallet-info__total-available">Total Available: {itemsAvailable}</div>}*/}
+
+    //   {/*{wallet && <div className="wallet-info__redeemed">Redeemed: {itemsRedeemed}</div>}*/}
+
+    //   {/*{wallet && <div className="wallet-info__remaining">Remaining: {itemsRemaining}</div>}*/}
+    // </div>
+    
     <Container>
       <Container maxWidth='xs' style={{ position: 'relative' }}>
         <Paper

@@ -10,7 +10,7 @@ import {
   whitelistSettings,
   welcomeSettings,
   mintPanic,
-} from "../userSettings";
+} from "../mintSettings";
 import { Container } from "@material-ui/core";
 
 export enum Phase {
